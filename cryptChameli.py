@@ -30,7 +30,7 @@ parser = argparse.ArgumentParser(description="A Tool mainly made for cryptoGraph
 parser.add_argument(
 	"--rot13-decode", help="Decodes ROT 13 encoding",
 	dest="rot_13_encode", nargs="+")
-parser.add_argument("--from-hex", help="Hex to string conversion",dest=from_hex, nargs="+")
+parser.add_argument("--from-hex", help="Hex to string conversion",dest="from_hex", nargs="+")
 
 if len(argv) == 1:
 	parser.print_help()
@@ -46,9 +46,15 @@ class Hex:
 		self.fromHex = lambda : getdecoder("hex")(self.text)[0].decode()
 
 class Decimal:
-	def __init__(self):
-		
+	def __init__(self,text):
+		self.text = list(text)
 
+	def toDecimal(self):
+		for i in self.text:
+			self.text[self.text.index(i)] = f"{ord(i)}"
+		return ' '.join(self.text)
+
+print(Decimal("hello").toDecimal())
 class Morse_code:
 	def __init__(self,text):
 		self.text_morse = text
